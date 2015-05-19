@@ -8,6 +8,8 @@
   (if (= n 1) 
       (car lst)
       (nth (- n 1) (cdr lst))))
+(define (random-func p1 p2)
+  (+ p1 (random p2)))
  ;;Slalom specific 
 (define (slalom-race-init) 
   (let ((boat (read)) (name (read)))
@@ -36,17 +38,15 @@
 
 ;A gate
  (define (normal d)
-  (list '(normal) (distance (0 0 0)) 223) 
+  (list '(normal) (distance (random-func (car d) 50) (random-func  0 20) 0 ) 223) 
   )
 (define (upstream d)
-  (list '(upstream gate) (distance 0 0 0))
-  )
+  (list '(upstream gate)(distance (random-func (car d) 50) (pick-random  ( list 0 20)) 0)))
 (define (reverse d)
-  '(reverse gate)
-  )
+  (list '(reverse gate) (distance (random-func (car d) 50) (random-func  0 20) 0 ) 223)
+ )
 
-(define (drop x y z) 
-  z) 
+(define (drop x y z) z) 
 ;;Moves 
 
  
