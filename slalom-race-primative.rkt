@@ -8,22 +8,37 @@
   (if (= n 1) 
       (car lst)
       (nth (- n 1) (cdr lst))))
+(define call/cc call-with-current-continuation)
 (define (random-func p1 p2)
   (+ p1 (random p2)))
  ;;Slalom specific 
 (define (slalom-race-init) 
   (let ((boat (read)) (name (read)))
-    (slalom-race-loop 25 boat name)))
+    (slalom-race-loop (gate-list 25 300) boat name))) 
                    
 (define (slalom-race-loop gates class name)
-  (if (= gates 0) 
+  (if (= gates '()) 
       gates
       (slalom-race-loop (-  gates 1) class name)))
-
-;;Boats 
+   
+;;Boats and stuff
 (define (make-boat some-boat) 
   some-boat
  ) 
+;Define boats using lambda expressions 
+(define (new-boat name length type)
+  (lambda (x) ( x type length name) )) 
+
+(define galasport-c1 (new-boat 'C1  351 'galasport))
+(define galasport-k1 (new-boat 'K1  351 'galasport))
+
+
+(define (length nb)
+  (nb (lambda (x y z) y)))
+(define (name nb) 
+  (nb (lambda (x y z) x)))
+
+
 ;;List of gates
 (define (gate-list n d ) 
   (if (= n 0)
@@ -48,6 +63,7 @@
 
 (define (drop x y z) z) 
 ;;Moves 
+
 
  
 
